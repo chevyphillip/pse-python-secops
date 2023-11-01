@@ -20,26 +20,19 @@ def create_github_issue():
 
     vuln_data = parse_vuln_data()
 
-    vuln_data_payload = {
-        "id": vuln_data["id"],
-        "title": vuln_data["title"],
-        "packageName": vuln_data["packageName"],
-        "version": vuln_data["version"],
-        "severity": vuln_data["severity"],
-    }
+    for vuln_data_payload in vuln_data:
+        if vuln_data_payload["severity"] == "critical":
+            title = f"Critical Vulnerability Found in {vuln_data_payload['title']}"
+            body = f"""
+            [X] - A critical vulnerability was found in {vuln_data_payload['packageName']}\nVersion: {vuln_data_payload['version']}\nSnyk ID: {vuln_data_payload['id']}.
+            """
+        else:
+            title = "No Security Issues Found."
+            body = "No Security Issues Found."
 
-    if vuln_data_payload["severity"] == "critical":
-        title = f"Critical Vulnerability Found in {vuln_data_payload['title']}"
-        body = f"""
-        [X] - A critical vulnerability was found in {vuln_data_payload['packageName']}\nVersion: {vuln_data_payload['version']}\nSnyk ID: {vuln_data_payload['id']}.
-        """
-    else:
-        title = "No Security Issues Found."
-        body = "No Security Issues Found."
+        payload = {"title": title, "body": body}
 
-    payload = {"title": title, "body": body}
-
-    r = requests.post(url, headers=headers, json=payload)
-    print(r.status_code)
-    print(r.json())
-    print("Issues Created!")
+        r = requests.post(url, headers=headers, json=payload)
+        print(r.status_code)
+        print(r.json())
+        print("Issues Created!")
