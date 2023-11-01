@@ -1,9 +1,4 @@
 import requests
-from helper import *
-import json
-
-
-import requests
 import json
 from helper import get_github_auth
 
