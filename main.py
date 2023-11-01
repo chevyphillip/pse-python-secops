@@ -10,7 +10,7 @@ def get_list_of_current_github_issues():
     github_token = os.environ.get("secrets.GITHUB_TOKEN")
     github_issue_params = {"owner": "chevyphillip", "repo": "nodejs-goof"}
     headers = {
-        "Accept": "Accept: application/vnd.github+json",
+        "Accept": "application/vnd.github+json",
         "Authorization": f"Bearer {github_token}",
         "X-GitHub-Api-Version": "2022-11-28",
     }
