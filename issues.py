@@ -19,14 +19,12 @@ def create_github_issue():
 
     vuln_data = parse_vuln_data()
 
-    id, title, package, version = (
-        vuln_data["id"],
-        vuln_data["title"],
-        vuln_data["package"],
-        vuln_data["version"],
-    )
+    id = vuln_data["id"]
+    title = vuln_data["title"]
+    package = vuln_data["package"]
+    version = vuln_data["version"]
 
-    severity = vuln_data["severity"]
+    severity = vuln_data[0]["severity"]
 
     if severity == "critical":
         title = f"[CRITICAL SECURITY ISSUE DETECTED] - {title}"
