@@ -19,7 +19,7 @@ def create_github_issue():
 
     vuln_data = parse_vuln_data()
 
-    id = vuln_data[0]["id"]
+    # id = vuln_data[0]["id"]
     title = vuln_data[0]["title"]
     package = vuln_data[0]["packageName"]
     version = vuln_data[0]["version"]
