@@ -7,7 +7,7 @@ import os
 
 
 def get_list_of_current_github_issues():
-    github_token = os.environ.get("secrets.GITHUB_TOKEN")
+    github_token = os.environ.get("GITHUB_TOKEN")
     github_issue_params = {"owner": "chevyphillip", "repo": "nodejs-goof"}
     headers = {
         "Accept": "application/vnd.github+json",
