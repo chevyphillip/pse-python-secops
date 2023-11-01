@@ -15,7 +15,8 @@ def get_list_of_current_github_issues():
     }
     url = f"https://api.github.com/repos/{github_issue_params['owner']}/{github_issue_params['repo']}/issues"
     r = requests.get(url, headers=headers)
-    return r.json()
+    print(r.status_code)
+    print(r.json())
 
 
 def vuln_data_parser():
