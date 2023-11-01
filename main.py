@@ -7,8 +7,10 @@ def vuln_data_parser():
     with open("vuln.json") as json_file:
         data = json.load(json_file)
         for p in data["vulnerabilities"]:
+            print("")
             print("Title: " + p["title"])
             print("Package: " + p["packageName"])
+            print("Severity: " + p["severity"])
             print("Version: " + p["version"])
             print("ID: " + p["id"])
             print("")
