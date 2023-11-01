@@ -10,7 +10,7 @@ def get_list_of_current_github_issues():
     github_issue_params = {"owner": "chevyphillip", "repo": "nodejs-goof"}
     headers = {
         "Accept": "Accept: application/vnd.github+json",
-        "Authorzation": "Bearer " + {os.environ["GITHUB_TOKEN"]},
+        "Authorzation": "Bearer {secret.GITHUB_TOKEN}",
         "X-GitHub-Api-Version": "2022-11-28",
     }
     url = f"https://api.github.com/repos/{github_issue_params['owner']}/{github_issue_params['repo']}/issues"
