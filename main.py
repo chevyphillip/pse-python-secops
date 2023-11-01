@@ -18,6 +18,7 @@ def get_list_of_current_github_issues():
     r = requests.get(url, headers=headers)
     print(r.status_code)
     print(r.json())
+    print("It Works!")
 
 
 def vuln_data_parser():
