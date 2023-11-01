@@ -19,18 +19,11 @@ def create_github_issue():
 
     vuln_data = parse_vuln_data()
 
-    # id = vuln_data[0]["id"]
-    title = vuln_data[0]["title"]
-    package = vuln_data[0]["packageName"]
-    version = vuln_data[0]["version"]
-
-    severity = vuln_data[0]["severity"]
-
-    if severity == "critical":
-        title = f"[CRITICAL SECURITY ISSUE DETECTED] - {title}"
-        body = f"ID: {id}, Title: {title}, Package: {package}, Version: {version}"
+    if vuln_data["severity"] == "critical":
+        title = f"Critical Vulnerability: {vuln_data['title']}"
+        body = f"ID: {vuln_data['id']}\nTitle: {vuln_data['title']}\nPackage Name: {vuln_data['packageName']}\nVersion: {vuln_data['version']}\n"
     else:
-        title = "[No Security Issues Found]"
+        title = "No Security Issues Found"
         body = "No Security Issues Found"
 
     payload = {"title": title, "body": body}
