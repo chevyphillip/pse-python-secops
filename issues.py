@@ -19,10 +19,10 @@ def create_github_issue():
 
     vuln_data = parse_vuln_data()
 
-    id = vuln_data["id"]
-    title = vuln_data["title"]
-    package = vuln_data["package"]
-    version = vuln_data["version"]
+    id = vuln_data[0]["id"]
+    title = vuln_data[0]["title"]
+    package = vuln_data[0]["packageName"]
+    version = vuln_data[0]["version"]
 
     severity = vuln_data[0]["severity"]
 
