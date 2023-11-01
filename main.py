@@ -1,18 +1,32 @@
 import requests
 import json
+import os
 
 
 # TODO: Parse vuln.json from the inital Snyk scan
+
+
+def get_list_of_current_github_issues():
+    github_issue_params = {"owner": "chevyphillip", "repo": "nodejs-goof"}
+    headers = {
+        "Accept": "Accept: application/vnd.github+json",
+        "Authorzation": "Bearer " + {os.environ["GITHUB_TOKEN"]},
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
+    url = f"https://api.github.com/repos/{github_issue_params['owner']}/{github_issue_params['repo']}/issues"
+    r = requests.get(url, headers=headers)
+    return r.json()
+
+
 def vuln_data_parser():
     with open("vuln.json") as json_file:
         data = json.load(json_file)
         for p in data["vulnerabilities"]:
             print("")
+            print("ID: " + p["id"])
             print("Title: " + p["title"])
             print("Package: " + p["packageName"])
-            print("Severity: " + p["severity"])
             print("Version: " + p["version"])
-            print("ID: " + p["id"])
             print("")
 
 
@@ -24,7 +38,8 @@ def vuln_data_parser():
 
 
 def main():
-    vuln_data_parser()
+    # vuln_data_parser()
+    get_list_of_current_github_issues()
 
 
 if __name__ == "__main__":
