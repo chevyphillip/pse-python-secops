@@ -51,7 +51,7 @@ def delete_duplicate_issues_based_on_snyk_id():
         snyk_ids = []
         for issue in issues:
             if issue["title"].startswith("Critical Vulnerability Found in"):
-                snyk_id = re.search(r"Snyk ID: ([a-z0-9]+)", issue["body"])
+                snyk_id = re.search(r"Snyk ID: ([a-z0-9]+)", issue["labels"]["name"])
                 if snyk_id:
                     snyk_ids.append(snyk_id.group(1))
                 else:
@@ -65,4 +65,13 @@ def delete_duplicate_issues_based_on_snyk_id():
             if r.status_code == 200:
                 issues = r.json()
                 for issue in issues:
-                    r = requests.delete
+                    r = requests.delete(
+                        f"https://api.github.com/repos/{github_repo['owner']}/{github_repo['repo']}/issues/{issue['number']}",
+                        headers=headers,
+                    )
+                    if r.status_code == 204:
+                        print(f"Deleted issue {issue['number']}")
+                    else:
+                        print(f"Failed to delete issue {issue['number']}")
+            else:
+                print(f"Failed to get issues. Status code: {r.status_code}")
