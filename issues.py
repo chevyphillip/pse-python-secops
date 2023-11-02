@@ -5,11 +5,13 @@ from helper import get_github_auth
 
 def parse_vuln_data():
     try:
-        with open("vuln.json", "r") as f:
-            data = json.load(f)
-            return data
+        with open("node_vulns.json", "r") as f1, open("docker_vulns.json", "r") as f2:
+            node_data = json.load(f1)
+            docker_data = json.load(f2)
+            node_data["vulnerabilities"].extend(docker_data["vulnerabilities"])
+            return node_data
     except Exception as e:
-        print(e)
+        print(f"Error: {e}")
         return None
 
 
@@ -28,7 +30,7 @@ def create_github_issue():
             title = "No Security Issues Found"
             body = "No Security Issues Found"
 
-        payload = {"title": title, "body": body, "labels": [vuln_data_payload["id"]]}
+        payload = {"title": title, "body": body}
 
         r = requests.post(url, headers=headers, json=payload)
         if r.status_code == 201:
