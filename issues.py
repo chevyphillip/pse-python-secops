@@ -23,7 +23,7 @@ def create_github_issue():
     for vuln_data_payload in vuln_data["vulnerabilities"]:
         if vuln_data_payload["severity"] == "critical":
             title = f"Critical Vulnerability Found in {vuln_data_payload['title']}"
-            body = f"[❌] - A critical vulnerability was found in {vuln_data_payload['packageName']}\nVersion: {vuln_data_payload['version']}\nSnyk ID: {vuln_data_payload['id']}."
+            body = f"❌ - A critical vulnerability was found in {vuln_data_payload['packageName']}\nVersion: {vuln_data_payload['version']}\nSnyk ID: {vuln_data_payload['id']}."
         else:
             title = "No Security Issues Found"
             body = "No Security Issues Found"
