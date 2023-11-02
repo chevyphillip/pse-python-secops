@@ -51,7 +51,7 @@ def delete_duplicate_issues_based_on_snyk_id():
         snyk_ids = []
         for issue in issues:
             if issue["title"].startswith("Critical Vulnerability Found in"):
-                snyk_id = re.search(r"Snyk ID: ([a-z0-9]+)", issue["labels"]["name"])
+                snyk_id = re.search(r"Snyk ID: ([a-z0-9]+)", issue["labels"][0]["name"])
                 if snyk_id:
                     snyk_ids.append(snyk_id.group(1))
                 else:
