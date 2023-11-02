@@ -1,9 +1,8 @@
 from helper import *
-from issues import create_github_issue, delete_duplicate_issues_based_on_snyk_id
+from issues import create_github_issue
 
 
 def main():
-    delete_duplicate_issues_based_on_snyk_id()
     create_github_issue()
 
 
