@@ -1,3 +1,4 @@
+from hmac import new
 import requests
 import json
 from helper import get_github_auth
@@ -22,13 +23,10 @@ def create_github_issue():
 
     vuln_data = parse_vuln_data()
 
-    # Handle dubplicated entires within the combined vuln_data. If thier is a duplicate, remove it. then create the issue.
-    for unfilterd_vulns1 in vuln_data["vulnerabilities"]:
-        for unfilterd_vulns2 in vuln_data["vulnerabilities"]:
-            if unfilterd_vulns1["id"] == unfilterd_vulns2["id"]:
-                vuln_data["vulnerabilities"].remove(unfilterd_vulns2)
+    # Remove duplicates from vuln_data
+    vuln_data["vulnerabilities"] = list({vuln['id']:vuln for vuln in vuln_data["vulnerabilities"]}.values())
 
-
+    # After duplicates are removed, check if there are any critical vulnerabilities and create an issue
     for vuln_data_payload in vuln_data["vulnerabilities"]:
         if vuln_data_payload["severity"] == "critical":
             title = f"Critical Vulnerability Found in {vuln_data_payload['title']}"
